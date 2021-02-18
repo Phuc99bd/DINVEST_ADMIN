@@ -3,6 +3,13 @@ export const TOKEN = "token";
 export const FIND_TRANSACTION = "https://tronscan.org/#/transaction/";
 export const ROUTE = {
   DASHBOARD: "/",
+  CUSTOMER: "/customers",
+  TRANSACTION: "/transactions",
+  SETTING: "/settings",
+  LOGOUT: "/logout",
+  ORDER: "/orders",
+  WALLETS: "/wallets",
+  PRODUCT: "/products",
 };
 export const USER_INFO_KEY = "userInfo";
 export const LANGUAGE = "lang";
