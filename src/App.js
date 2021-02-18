@@ -14,7 +14,7 @@ import messages_en from "translations/en.json";
 
 import { useDispatch } from "react-redux";
 import Dashboard from "pages/dashboard";
-import OrderPage from "pages/orders";
+import OrderPage from "pages/orders/pages";
 import ProductPage from "pages/products";
 import WalletPage from "pages/wallets";
 import TransactionPage from "pages/transactions";

@@ -8,7 +8,7 @@ import { ROUTE } from "commons/constants";
 import Dashboard from "pages/dashboard";
 import Header from "commons/components/header";
 import FooterComponent from "commons/components/footer";
-import OrderPage from "pages/orders";
+import OrderPage from "pages/orders/pages";
 import ProductPage from "pages/products";
 import WalletPage from "pages/wallets";
 import TransactionPage from "pages/transactions";
