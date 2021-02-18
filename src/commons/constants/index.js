@@ -10,6 +10,7 @@ export const ROUTE = {
   ORDER: "/orders",
   WALLETS: "/wallets",
   PRODUCT: "/products",
+  LOGIN: "/login",
 };
 export const USER_INFO_KEY = "userInfo";
 export const LANGUAGE = "lang";

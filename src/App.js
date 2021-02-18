@@ -55,20 +55,19 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) =>
-        isLogin() ? (
-          <PrivateLayout {...rest}>
-            <Component {...props} />
-          </PrivateLayout>
-        ) : (
-          <Redirect
-            to={{
-              pathname: `${ROUTE.LOGIN}`,
-              state: { from: props.location },
-            }}
-          />
-        )
-      }
+      render={(props) => (
+        // isLogin() ?
+        <PrivateLayout {...rest}>
+          <Component {...props} />
+        </PrivateLayout>
+        // ) : (
+        // <Redirect
+        //   to={{
+        //     pathname: `${ROUTE.LOGIN}`,
+        //     state: { from: props.location },
+        //   }}
+        // />
+      )}
     />
   );
 };
