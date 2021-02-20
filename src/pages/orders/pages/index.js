@@ -17,7 +17,7 @@ const OrderPage = () => {
   return (
     <div>
       <BreadcumbComponent items={BreadCumbArr} />
-      {/* Orderasdasdas */}
+      {/* Order */}
       <div className="order-content">
         <NewestOrder />
         <AllOrder />

@@ -1,10 +1,46 @@
+import { Table } from "antd";
 import React from "react";
+
+const dataSource = [
+  {
+    key: "1",
+    name: "Mike",
+    age: 32,
+    address: "10 Downing Street",
+  },
+  {
+    key: "2",
+    name: "John",
+    age: 42,
+    address: "10 Downing Street",
+  },
+];
+
+const columns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Age",
+    dataIndex: "age",
+    key: "age",
+  },
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+  },
+];
 
 const NewestOrder = ({}) => {
   return (
     <div className="newest-order child">
       <div className="title">Latest Order</div>
-      <div className="content">content latest-order</div>
+      <div className="content">
+        <Table dataSource={dataSource} columns={columns} />
+      </div>
     </div>
   );
 };
