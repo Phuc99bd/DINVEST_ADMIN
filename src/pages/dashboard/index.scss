@@ -1,0 +1,38 @@
+.main-dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  margin: 5px;
+  .icon-dashboard {
+    display: block;
+    margin: 10px auto;
+    border-bottom: 1px solid black;
+    span {
+      font-size: 30px;
+      color: red;
+    }
+  }
+  .value-by {
+    display: block;
+    margin: auto;
+    color: black;
+  }
+}
+
+.card-main {
+  margin: 8px !important;
+}
+
+.main-page {
+  padding: 10px;
+}
+
+.transactions {
+  background: white !important;
+  h2 {
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 600;
+  }
+}
