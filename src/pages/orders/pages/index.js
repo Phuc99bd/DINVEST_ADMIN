@@ -1,8 +1,10 @@
 import BreadcumbComponent from "commons/components/breadcumb";
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.scss";
 import MUIDataTable from "mui-datatables";
 import { Col, Row } from "antd";
+import { fetchListOrder } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const BreadCumbArr = [
   {
@@ -17,50 +19,48 @@ const BreadCumbArr = [
 const OrderPage = () => {
   const columns = [
     {
-      name: "name",
-      label: "Name",
+      name: "customer",
+      label: "Full name",
       options: {
-        filter: true,
-        sort: true,
+        customBodyRender: (data) => {
+          return data.full_name;
+        },
       },
     },
     {
-      name: "company",
-      label: "Company",
+      name: "order_code",
+      label: "Code",
+    },
+    {
+      name: "total_pay",
+      label: "Total pay",
+    },
+    {
+      name: "detailOrders",
+      label: "Name invest",
       options: {
-        filter: true,
-        sort: false,
+        customBodyRender: (data) => {
+          return data[0]?.name;
+        },
       },
     },
     {
-      name: "city",
-      label: "City",
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: "state",
-      label: "State",
-      options: {
-        filter: true,
-        sort: false,
-      },
+      name: "created_at",
+      label: "Created at",
     },
   ];
 
-  const data = [
-    { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
-    { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
-    { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
-    {
-      name: "James Houston",
-      company: "Test Corp",
-      city: "Dallas",
-      state: "TX",
-    },
-  ];
+  const dispatch = useDispatch();
+
+  const fetchOrders = () => {
+    dispatch(fetchListOrder({ limit: 1000 }));
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const { data } = useSelector((state) => state.order);
 
   const options = {
     filterType: "checkbox",
@@ -73,7 +73,7 @@ const OrderPage = () => {
         <Col xs={24} className="customers">
           <MUIDataTable
             title={"List order"}
-            data={data}
+            data={data?.data || []}
             columns={columns}
             options={options}
           />

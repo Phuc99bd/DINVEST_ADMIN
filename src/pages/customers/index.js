@@ -1,8 +1,10 @@
 import { Col, Row } from "antd";
 import BreadcumbComponent from "commons/components/breadcumb";
-import React from "react";
+import React, { useEffect } from "react";
 import "./index.scss";
 import MUIDataTable from "mui-datatables";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchListCustomer } from "./redux/actions";
 
 const BreadCumbArr = [
   {
@@ -16,56 +18,56 @@ const BreadCumbArr = [
 ];
 
 const CustomerPage = () => {
+  const dispatch = useDispatch();
+  const fetchCustomers = () => {
+    dispatch(fetchListCustomer({ limit: 1000 }));
+  };
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
+
   const columns = [
     {
-      name: "name",
-      label: "Name",
+      name: "first_name",
+      label: "First Name",
+    },
+    {
+      name: "last_name",
+      label: "Last name",
+    },
+    {
+      name: "email",
+      label: "Email",
+    },
+    {
+      name: "revenue_investment",
+      label: "Revenue",
       options: {
-        filter: true,
-        sort: true,
+        customBodyRender: (data) => {
+          return `$${data}`;
+        },
       },
     },
     {
-      name: "company",
-      label: "Company",
-      options: {
-        filter: true,
-        sort: false,
-      },
+      name: "gender",
+      label: "Gender",
     },
     {
-      name: "city",
-      label: "City",
-      options: {
-        filter: true,
-        sort: false,
-      },
+      name: "created_at",
+      label: "Created at",
     },
     {
-      name: "state",
-      label: "State",
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-  ];
-
-  const data = [
-    { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
-    { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
-    { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
-    {
-      name: "James Houston",
-      company: "Test Corp",
-      city: "Dallas",
-      state: "TX",
+      name: "address",
+      label: "Address",
     },
   ];
 
   const options = {
     filterType: "checkbox",
   };
+
+  const { data } = useSelector((state) => state.customer);
 
   return (
     <Row>
@@ -75,7 +77,7 @@ const CustomerPage = () => {
       <Col xs={24} className="customers">
         <MUIDataTable
           title={"List Customer"}
-          data={data}
+          data={data?.data || []}
           columns={columns}
           options={options}
         />

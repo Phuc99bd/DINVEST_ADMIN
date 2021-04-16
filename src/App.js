@@ -20,6 +20,7 @@ import WalletPage from "pages/wallets";
 import TransactionPage from "pages/transactions";
 import SettingPage from "pages/settings";
 import CustomerPage from "pages/customers";
+import LoginPage from "pages/auth/login";
 
 const LANGUAGE_DEFAUL = "en";
 const messages = {
@@ -107,6 +108,7 @@ const App = () => {
           />
           <PrivateRoute exact path={ROUTE.SETTING} component={SettingPage} />
           <PrivateRoute exact path={ROUTE.CUSTOMER} component={CustomerPage} />
+          <PublicRoute exact path={ROUTE.LOGIN} component={LoginPage} />
         </Router>
       </IntlProvider>
     </div>

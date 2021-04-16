@@ -1,7 +1,11 @@
-import React from "react";
-import MUIDataTable from "mui-datatables";
-import BreadcumbComponent from "commons/components/breadcumb";
 import { Col, Row } from "antd";
+import BreadcumbComponent from "commons/components/breadcumb";
+import React, { useEffect } from "react";
+import "./index.scss";
+import MUIDataTable from "mui-datatables";
+import { fetchListWallet } from "./redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 const BreadCumbArr = [
   {
@@ -17,51 +21,57 @@ const BreadCumbArr = [
 const WalletPage = () => {
   const columns = [
     {
-      name: "name",
-      label: "Name",
+      name: "customer",
+      label: "Full name",
       options: {
-        filter: true,
-        sort: true,
+        customBodyRender: (data) => {
+          return data.full_name;
+        },
       },
     },
     {
-      name: "company",
-      label: "Company",
+      name: "address",
+      label: "Address network",
+    },
+    {
+      name: "label",
+      label: "name",
+    },
+    {
+      name: "network",
+      label: "Network",
+    },
+    {
+      name: "amount",
+      label: "Amount",
       options: {
-        filter: true,
-        sort: false,
+        customBodyRender: (data) => {
+          return `$${data}`;
+        },
       },
     },
     {
-      name: "city",
-      label: "City",
+      name: "created_at",
+      label: "Create at",
       options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: "state",
-      label: "State",
-      options: {
-        filter: true,
-        sort: false,
+        customBodyRender: (data) => {
+          return moment(data).format("YYYY-MM-DD HH:mm:ss");
+        },
       },
     },
   ];
 
-  const data = [
-    { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
-    { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
-    { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
-    {
-      name: "James Houston",
-      company: "Test Corp",
-      city: "Dallas",
-      state: "TX",
-    },
-  ];
+  const dispatch = useDispatch();
 
+  const fetWallets = () => {
+    dispatch(fetchListWallet({ limit: 1000 }));
+  };
+
+  useEffect(() => {
+    fetWallets();
+  }, []);
+
+  const { data } = useSelector((state) => state.wallet);
   const options = {
     filterType: "checkbox",
   };
@@ -72,8 +82,8 @@ const WalletPage = () => {
       </Col>
       <Col xs={24} className="transactions">
         <MUIDataTable
-          title={"List wallet"}
-          data={data}
+          title={"List Wallet"}
+          data={data?.data || []}
           columns={columns}
           options={options}
         />

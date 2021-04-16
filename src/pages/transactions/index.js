@@ -1,8 +1,10 @@
 import { Col, Row } from "antd";
 import BreadcumbComponent from "commons/components/breadcumb";
-import React from "react";
+import React, { useEffect } from "react";
 import "./index.scss";
 import MUIDataTable from "mui-datatables";
+import { fetchListTransaction } from "./redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const BreadCumbArr = [
   {
@@ -18,50 +20,47 @@ const BreadCumbArr = [
 const TransactionPage = () => {
   const columns = [
     {
-      name: "name",
-      label: "Name",
+      name: "customer",
+      label: "Full name",
       options: {
-        filter: true,
-        sort: true,
+        customBodyRender: (data) => {
+          return data.full_name;
+        },
       },
     },
     {
-      name: "company",
-      label: "Company",
-      options: {
-        filter: true,
-        sort: false,
-      },
+      name: "code",
+      label: "Hash",
     },
     {
-      name: "city",
-      label: "City",
-      options: {
-        filter: true,
-        sort: false,
-      },
+      name: "amount",
+      label: "Amount",
     },
     {
-      name: "state",
-      label: "State",
-      options: {
-        filter: true,
-        sort: false,
-      },
+      name: "type",
+      label: "Type",
+    },
+    {
+      name: "status",
+      label: "Status",
+    },
+    {
+      name: "created_at",
+      label: "Create at",
     },
   ];
 
-  const data = [
-    { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
-    { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
-    { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
-    {
-      name: "James Houston",
-      company: "Test Corp",
-      city: "Dallas",
-      state: "TX",
-    },
-  ];
+  const dispatch = useDispatch();
+
+  const fetchTransactions = () => {
+    dispatch(fetchListTransaction({ pageSize: 1000 }));
+  };
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
+
+  const { data } = useSelector((state) => state.transaction);
 
   const options = {
     filterType: "checkbox",
@@ -74,7 +73,7 @@ const TransactionPage = () => {
       <Col xs={24} className="transactions">
         <MUIDataTable
           title={"List transaction"}
-          data={data}
+          data={data?.data || []}
           columns={columns}
           options={options}
         />
